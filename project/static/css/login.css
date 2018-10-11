@@ -26,7 +26,7 @@ fieldset {
   min-width: -webkit-min-content;
   padding: 30px;
 }
-input, p {
+.ghost-input, p {
   display: block;
   font-weight:300;
   width: 100%;
@@ -63,6 +63,7 @@ input:focus {
   -ms-transition: all 0.1s ease-in-out;
   -o-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
+  font-size: 18px;
 }
 .ghost-button:hover {
   border:2px solid #515151;

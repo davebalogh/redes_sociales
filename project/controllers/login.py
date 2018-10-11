@@ -2,13 +2,22 @@
 from project import app
 from flask import render_template, request
 from flask_wtf import FlaskForm
-from wtforms import StringField
+from wtforms import StringField, PasswordField
 from wtforms.validators import DataRequired
+from project.models import Login
 
+
+
+#for user in Login.User.select():
+#    print(user.username)
+
+
+
+# https://wtforms.readthedocs.io/en/latest/index.html
 
 class CreateForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
-    password = StringField('Password', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
 
 
 @app.route('/', methods=['GET', 'POST'])
