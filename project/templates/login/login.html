@@ -1,6 +1,6 @@
 {% extends "layout/layout.html" %}
 {% block body %}
-    <div><center><img src="{{ url_for('static', filename='images/logo_up.png') }}" /></center></div>
+    <div class="redes-logo"><center><img src="{{ url_for('static', filename='images/redes.png') }}" /></center></div>
     <form action="{{ url_for('login') }}" method="post">
         {{ form.csrf_token }}
         <dl>
