@@ -19,7 +19,7 @@ class User(BaseModel):
     password = peewee.CharField()
     is_active = peewee.SmallIntegerField()
 
-
+mysql_db.connect()
 
 query = User.select()
 

@@ -9,9 +9,7 @@
         
         <div class="page">
             
-            {% for message in get_flashed_messages() %}
-                <div class="flash">{{ message }}</div>
-            {% endfor %}
+            
             {% macro render_error(field) %}
                 {% if field.errors %}
                     {% for error in field.errors %}<span class='error'>{{ error }}</span>{% endfor %}

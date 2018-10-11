@@ -7,6 +7,11 @@
             <dd>{{ form.username.label }} {{ form.username(size=20, class_="ghost-input") }} {{ render_error(form.username) }}</dd>
             <dd>{{ form.password.label }} {{ form.password(size=20, class_="ghost-input") }} {{ render_error(form.password) }}</dd>
             <dd><input type="submit" value="Login" class="ghost-button" /></dd>
+            <dd>
+                {% for category, message in get_flashed_messages(with_categories=true) %}
+                    <div class="flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </dd>
         </dl>
     </form>
 {% endblock %}
