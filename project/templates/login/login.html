@@ -1,0 +1,12 @@
+{% extends "layout/layout.html" %}
+{% block body %}
+    <div><center><img src="{{ url_for('static', filename='images/logo_up.png') }}" /></center></div>
+    <form action="{{ url_for('login') }}" method="post">
+        {{ form.csrf_token }}
+        <dl>
+            <dd>{{ form.username.label }} {{ form.username(size=20) }} {{ render_error(form.username) }}</dd>
+            <dd>{{ form.password.label }} {{ form.password(size=20) }} {{ render_error(form.password) }}</dd>
+            <dd><input type="submit" value="Login" class="ghost-button" /></dd>
+        </dl>
+    </form>
+{% endblock %}

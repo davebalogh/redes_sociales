@@ -1,0 +1,23 @@
+<!doctype html>
+    <head>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+        <link id="favicon" rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/png" />
+        <title>Redes Sociales</title>
+    </head>
+    <body>    
+        
+        <div class="page">
+            
+            {% for message in get_flashed_messages() %}
+                <div class="flash">{{ message }}</div>
+            {% endfor %}
+            {% macro render_error(field) %}
+                {% if field.errors %}
+                    {% for error in field.errors %}<span class='error'>{{ error }}</span>{% endfor %}
+                {% endif %}
+            {% endmacro %}
+            {% block body %}{% endblock %}
+        </div>
+    </body>
+</html>
