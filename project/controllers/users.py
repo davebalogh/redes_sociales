@@ -25,7 +25,8 @@ class CreateForm(FlaskForm):
 def users():
     if 'user_id' in session:
         form = CreateForm(request.form)
-        return render_template('users/index.html', form=form)
+        userList = Login.User.select()
+        return render_template('users/index.html', form=form, users=userList)
     else:
         return redirect ('/logout')
 

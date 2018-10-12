@@ -72,10 +72,10 @@ var InitiateEditableDataTable = function() {
                 "oTableTools": {
                     "aButtons": [
                         "copy",
-                        "print",
+                        
                         {
                             "sExtends": "collection",
-                            "sButtonText": "Save <i class=\"fa fa-angle-down\"></i>",
+                            "sButtonText": "<a href='users/new'>New User</a>",
                             "aButtons": ["csv", "xls", "pdf"]
                         }
                     ],
@@ -85,8 +85,8 @@ var InitiateEditableDataTable = function() {
                     "search": "",
                     "sLengthMenu": "_MENU_",
                     "oPaginate": {
-                        "sPrevious": "Prev",
-                        "sNext": "Next"
+                        "sPrevious": "Anterior",
+                        "sNext": "Siguiente"
                     }
                 },
                 "aoColumns": [
