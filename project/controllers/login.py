@@ -5,7 +5,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, Label
 from wtforms.validators import DataRequired
 from project.models import Login
-from flask import flash
+from flask import flash, redirect
 
 
 #for user in Login.User.select():
@@ -28,6 +28,7 @@ def login():
         query = Login.User.select().where(Login.User.username == form.username.data)
         if query.count() == 1 and query[0].password == form.password.data:
             flash('Usuario correcto', 'success')
+            return redirect('/users')
         else:
             flash('Usuario o password incorrecta', 'error')
         
