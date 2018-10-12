@@ -1455,7 +1455,7 @@ a:active {
 .navbar .navbar-inner .navbar-header .navbar-account .account-area {
   position: absolute;
   top: 0;
-  right: 0px;
+  right: 50px;
   zoom: 1;
   filter: alpha(opacity=100);
   -webkit-opacity: 1;

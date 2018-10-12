@@ -5,7 +5,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, Label
 from wtforms.validators import DataRequired
 from project.models import Login
-from flask import flash
+from flask import flash, session, redirect
 
 
 #for user in Login.User.select():
@@ -23,8 +23,10 @@ class CreateForm(FlaskForm):
 
 @app.route('/users', methods=['GET'])
 def users():
-    form = CreateForm(request.form)
-
-    return render_template('users/index.html', form=form)
+    if 'user_id' in session:
+        form = CreateForm(request.form)
+        return render_template('users/index.html', form=form)
+    else:
+        return redirect ('/logout')
 
 

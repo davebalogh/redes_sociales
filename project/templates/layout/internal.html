@@ -66,7 +66,7 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
                                 <a class="login-area dropdown-toggle" data-toggle="dropdown">
                                     
                                     <section>
-                                        <h2><span class="profile"><span>David Balogh</span></span></h2>
+                                        <h2><span class="profile"><span>{{session['username']}}</span></span></h2>
                                     </section>
                                 </a>
                                 <!--Login Area Dropdown-->
@@ -77,7 +77,7 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
                               
                                     <!--/Theme Selector Area-->
                                     <li class="dropdown-footer">
-                                        <a href="login.html">
+                                        <a href="/logout">
                                             Sign out
                                         </a>
                                     </li>

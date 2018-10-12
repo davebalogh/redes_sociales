@@ -17,6 +17,8 @@ class User(BaseModel):
     user_id = peewee.IntegerField(primary_key=True)
     username = peewee.CharField()
     password = peewee.CharField()
+    first_name = peewee.CharField()
+    last_name = peewee.CharField()
     email = peewee.CharField()
     is_active = peewee.SmallIntegerField()
     is_admin = peewee.SmallIntegerField()
