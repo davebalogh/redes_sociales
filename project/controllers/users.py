@@ -44,18 +44,46 @@ def userList():
 def userEdit(id=None):
     if 'user_id' in session:
         form = CreateFormEdit(request.form)
-        currentUser = Login.User.get(Login.User.user_id == id)
+        currentUser = Login.User()
+        if id != None:
+            currentUser = Login.User.get(Login.User.user_id == id)
+
         if request.method == 'GET':
+            if currentUser.user_id == None:
+                currentUser = None
+
             return render_template('users/edit.html', form=form, user=currentUser)
         elif request.method == 'POST':
-            print(request.form)
+
             currentUser.first_name = request.form['first_name']
             currentUser.last_name = request.form['last_name']
             currentUser.username = request.form['username']
             currentUser.email = request.form['email']
             currentUser.password = request.form['password']
-            currentUser.save()
+            if request.form.get('is_admin', None) != None:
+                currentUser.is_admin = 1
+            else:
+                currentUser.is_admin = 0
+            if request.form.get('is_active', None) != None:
+                currentUser.is_active = 1
+            else:
+                currentUser.is_active = 0
+            print(currentUser.user_id)
+            #validation of existing user
+            existingUser = Login.User.select().where(Login.User.username == currentUser.username, Login.User.user_id != currentUser.user_id)
+            print(existingUser.count())
+            if existingUser.count() > 0:
+                flash('Username exisitente', 'error')
+                return render_template('users/edit.html', form=form, user=currentUser)
+            else:
+                currentUser.save()
+                return redirect ('/users?result=ok')
 
-            return redirect ('/users?result=ok')
     else:
         return redirect ('/logout')
+
+
+@app.route('/users/new', methods=['GET', 'POST'])
+def userNew():
+    return userEdit(None)
+    

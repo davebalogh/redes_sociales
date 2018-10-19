@@ -61,6 +61,11 @@
                                            data-bv-different-field="password"
                                            data-bv-different-message="The username and password cannot be the same as each other" 
                                            value="{{user.username}}" />
+                                           <dd>
+                                                {% for category, message in get_flashed_messages(with_categories=true) %}
+                                                    <div class="flash" style="color: red">{{ message }}</div>
+                                                {% endfor %}
+                                           </dd>
                                 </div>
                             </div>
 
@@ -104,6 +109,35 @@
                                            data-bv-different-message="The password cannot be the same as username" 
                                            value="{{user.password}}"/>
                                 </div>
+                            </div>
+                
+                            <div class="form-group">
+                                    <label class="col-lg-4 control-label">¿Est&aacute; Activo?</label>
+                           
+                                    <div class="col-lg-8">
+                                            <div class="form-group" style=" margin-left: 0;">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" {% if user.is_active %} checked {% endif %} name="is_active" />
+                                                            <span class="text"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                    <label class="col-lg-4 control-label">¿Es Administrador?</label>
+                           
+                                    <div class="col-lg-8">
+                                            <div class="form-group" style=" margin-left: 0;">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" {% if user.is_admin %} checked {% endif %} name="is_admin" />
+                                                            <span class="text"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                    </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-lg-offset-4 col-lg-8">
