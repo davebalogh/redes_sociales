@@ -1,0 +1,106 @@
+{% extends "layout/internal.html" %}
+{% block body %}
+    <!-- Page Header -->
+    <div class="page-header position-relative">
+        <div class="header-title">
+            <h1>
+                Red {{network.name}}
+            </h1>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+    <!-- Page Body -->
+    <div class="page-body">
+
+
+            <div class="row">
+            <div class="col-lg-6 col-sm-6 col-xs-12">
+                <div class="widget radius-bordered">
+                    <div class="widget-header">
+                        <span class="widget-caption">Formulario</span>
+                    </div>
+                    <div class="widget-body">
+                        <form id="registrationForm" method="post" class="form-horizontal"
+                              data-bv-message="This value is not valid"
+                              data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                              data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                              data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                           <input type="hidden" name="network_id" value="{{network.network_id}}" />
+                        
+
+                            
+
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label">Nombre</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" name="name" type="text"
+
+                                           value="{{network.name}}" />
+                                </div>
+                            </div>
+                            
+                            <div class="form-group has-feedback">
+                                    <label class="col-lg-4 control-label">Tipo</label>
+                                    <div class="col-lg-8">
+                                        <select class="form-control" name="network_type" data-bv-field="network_type">
+                                            <option value="">Seleccionar</option>
+                                            <option value="Twitter" {% if 'Twitter' in network.network_type %} selected {% endif %} >Twitter</option>
+                                            <option value="Telegram" {% if 'Telegram' in network.network_type %} selected {% endif %} >Telegram</option>
+
+                                        </select><i class="form-control-feedback" data-bv-field="network_type" style="display: none;"></i>
+                                    </div>
+                                </div>
+                
+                            <div class="form-group">
+                                    <label class="col-lg-4 control-label">¿Est&aacute; Activa?</label>
+                           
+                                    <div class="col-lg-8">
+                                            <div class="form-group" style=" margin-left: 0;">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" {% if network.is_active %} checked {% endif %} name="is_active" />
+                                                            <span class="text"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                    </div>
+                            </div>
+                           
+                            <div class="form-group">
+                                <div class="col-lg-offset-4 col-lg-8">
+                                    <input class="btn btn-palegreen" type="submit" value="Guardar" />
+                                    <button class="btn btn-danger" onclick="window.location.href='/networks'">Cancelar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+
+        <!--Basic Scripts-->
+    <script src={{ url_for('static', filename='assets/js/jquery.min.js')}}></script>
+    <script src={{ url_for('static', filename='assets/js/bootstrap.min.js')}}></script>
+    <script src={{ url_for('static', filename='assets/js/slimscroll/jquery.slimscroll.min.js')}}></script>
+
+    <!--Beyond Scripts-->
+    <script src={{ url_for('static', filename='assets/js/beyond.min.js')}}></script>
+
+    <!--Page Related Scripts-->
+    <script src={{ url_for('static', filename='assets/js/validation/bootstrapValidator.js')}}></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#registrationForm").bootstrapValidator();
+
+           
+        });
+    </script>
+
+    </div>
+    <!-- /Page Body -->
+{% endblock %}

@@ -81,7 +81,7 @@ def userEdit(id=None):
             print(existingUser.count())
             if existingUser.count() > 0:
                 flash('Username exisitente', 'error')
-                return render_template('users/edit.html', form=form, user=currentUser)
+                return render_template('users/edit.html', form=form, user=currentUser, session=1)
             else:
                 currentUser.save()
                 return redirect ('/users?result=ok')

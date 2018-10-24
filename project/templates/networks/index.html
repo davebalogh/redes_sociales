@@ -4,7 +4,7 @@
     <div class="page-header position-relative">
         <div class="header-title">
             <h1>
-                Usuarios
+                Redes Sociales
             </h1>
         </div>
     </div>
@@ -28,21 +28,21 @@
                     </div>
 
                     
-                            <div class="modal-preview" id="delete_user_confirmation" style="position: absolute; width: 300px; left: 30%; display: none">
+                            <div class="modal-preview" id="delete_object_confirmation" style="position: absolute; width: 300px; left: 30%; display: none">
                                 <div class="modal modal-darkorange">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="$('#delete_user_confirmation').css('display', 'none');">×</button>
-                                                <h4 class="modal-title">¿Eliminar Usuario?</h4>
-                                                <input type="hidden" id="delete_user_id" />
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="$('#delete_object_confirmation').css('display', 'none');">×</button>
+                                                <h4 class="modal-title">¿Eliminar Red Social?</h4>
+                                                <input type="hidden" id="delete_object_id" />
                                             </div>
                                             <div class="modal-body">
-                                                <p>¿Est&aacute; seguro que desea eliminar el usuario?</p>
+                                                <p>¿Est&aacute; seguro que desea eliminar la red social?</p>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('#delete_user_confirmation').css('display', 'none');">Cancelar</button>
-                                                <button type="button" class="btn btn-default" onclick="window.location.href = '/users/delete/' + $('#delete_user_id').val();">Confirmar</button>
+                                                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('#delete_object_confirmation').css('display', 'none');">Cancelar</button>
+                                                <button type="button" class="btn btn-default" onclick="window.location.href = '/networks/delete/' + $('#delete_object_id').val();">Confirmar</button>
                                             </div>
                                         </div><!-- /.modal-content -->
                                     </div><!-- /.modal-dialog -->
@@ -70,16 +70,16 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            Username
+                                            Id
                                         </th>
                                         <th>
-                                            Email
+                                            Name
                                         </th>
                                         <th>
-                                            Nombre
+                                            Tipo
                                         </th>
                                         <th>
-                                            Apellido
+                                            Propietario
                                         </th>
                                         <th>
                                             Acci&oacute;n
@@ -88,25 +88,25 @@
                                 </thead>
                                 <tbody>
 
-                                    {% for user in users %}
+                                    {% for network in networks %}
                                         <tr>
                                               
                                                 
                                                 <td>
-                                                        {{ user.username }}
+                                                        {{ network.network_id }}
                                                 </td>
                                                 <td>
-                                                    {{ user.email }}
+                                                        {{ network.name }}
                                                 </td>
                                                 <td>
-                                                        {{ user.first_name }}
+                                                        {{ network.network_type }}
                                                 </td>
                                                 <td class="center ">
-                                                        {{ user.last_name }}
+                                                        {{ network.owner_id.username }}
                                                 </td>
                                                 <td>
-                                                        <a href="users/edit/{{ user.user_id}}" class="btn btn-info btn-xs"><i class="fa fa-edit"></i> Editar &nbsp;&nbsp;</a>
-                                                        <a href="#" onclick="$('#delete_user_id').val('{{ user.user_id}}'); $('#delete_user_confirmation').css('display', 'block');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Eliminar</a>
+                                                        <a href="networks/edit/{{ network.network_id}}" class="btn btn-info btn-xs"><i class="fa fa-edit"></i> Editar &nbsp;&nbsp;</a>
+                                                        <a href="#" onclick="$('#delete_object_id').val('{{ network.network_id}}'); $('#delete_object_confirmation').css('display', 'block');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Eliminar</a>
                                                 </td>
                                         </tr>
                                     {% endfor %}
@@ -134,7 +134,7 @@
             <script src="{{ url_for('static', filename='assets/js/datatable/dataTables.bootstrap.min.js')}}"></script>
             <script src="{{ url_for('static', filename='assets/js/datatable/datatables-init.js')}}"></script>
             <script>
-                InitiateEditableDataTable.init("<a href='users/new'>Nuevo Usuario</a>");
+                InitiateEditableDataTable.init("<a href='networks/new'>Nueva Red</a>");
             </script>
 
 

@@ -59,7 +59,7 @@ var InitiateSimpleDataTable = function() {
 }();
 var InitiateEditableDataTable = function() {
     return {
-        init: function() {
+        init: function(sButtonTextParam) {
             //Datatable Initiating
             var oTable = $('#editabledatatable').dataTable({
                 "aLengthMenu": [
@@ -75,7 +75,7 @@ var InitiateEditableDataTable = function() {
                         
                         {
                             "sExtends": "collection",
-                            "sButtonText": "<a href='users/new'>New User</a>",
+                            "sButtonText": sButtonTextParam,
                             "aButtons": ["csv", "xls", "pdf"]
                         }
                     ],

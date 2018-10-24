@@ -117,15 +117,23 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
                 <!-- /Page Sidebar Header -->
                 <!-- Sidebar Menu -->
                 <ul class="nav sidebar-menu">
-               
+                    {% if session['is_admin'] %}
+                        <li>
+                            <a href="/users">
+                                <!-- https://getbootstrap.com/docs/3.3/components/ -->
+                                <i class="menu-icon glyphicon glyphicon-user"></i>
+                                <span class="menu-text"> Usuarios </span>
+                            </a>
+                        </li>
+                    {% endif %}
+
                     <li>
-                        <a href="/users">
-                            <!-- https://getbootstrap.com/docs/3.3/components/ -->
-                            <i class="menu-icon glyphicon glyphicon-user"></i>
-                            <span class="menu-text"> Usuarios </span>
-                        </a>
+                            <a href="/networks">
+                                <i class="menu-icon fa fa-th-list"></i>
+                                <span class="menu-text"> Redes </span>
+                            </a>
                     </li>
-               
+
                     <li>
                         <a href="/telegram">
                             <i class="menu-icon glyphicon glyphicon-comment"></i>
