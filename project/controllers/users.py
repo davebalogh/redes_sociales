@@ -31,11 +31,18 @@ def userList():
     if 'user_id' in session:
         form = CreateFormList(request.form)
         userList = Login.User.select()
-        show_message = 'hide'
+        show_message_css = 'hide'
+        show_message_text = ''
+        show_message_type = 'success'
         if 'result' in request.args:
-            show_message = ''
+            show_message_css = ''
+            if request.args['result'] == 'ok':
+                show_message_text = 'La información se guardo correctamente'
+            else:
+                show_message_type = 'danger'
+                show_message_text = 'Hubo un problema al realizar la acción'
 
-        return render_template('users/index.html', form=form, users=userList, message=show_message)
+        return render_template('users/index.html', form=form, users=userList, message_css=show_message_css, message_text=show_message_text, message_type=show_message_type)
     else:
         return redirect ('/logout')
 
@@ -87,3 +94,15 @@ def userEdit(id=None):
 def userNew():
     return userEdit(None)
     
+
+@app.route('/users/delete/<int:id>', methods=['GET', 'POST'])
+def userDelete(id):
+    if 'user_id' in session:
+        if id != None:
+            currentUser = Login.User.get(Login.User.user_id == id)
+            if currentUser.user_id != None:
+                currentUser.delete_instance()
+                return redirect ('/users?result=ok')
+        return redirect ('/users?result=fail')
+    else:
+        return redirect ('/logout')
