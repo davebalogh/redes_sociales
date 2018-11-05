@@ -1,0 +1,88 @@
+{% extends "layout/internal.html" %}
+{% block body %}
+    <!-- Page Header -->
+    <div class="page-header position-relative">
+        <div class="header-title">
+            <h1>
+                Twitter {{network.username}}
+            </h1>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+    <!-- Page Body -->
+    <div class="page-body">
+
+
+            <div class="row">
+            <div class="col-lg-6 col-sm-6 col-xs-12">
+                <div class="widget radius-bordered">
+                    <div class="widget-header">
+                        <span class="widget-caption">Formulario</span>
+                    </div>
+                    <div class="widget-body">
+                        <form id="registrationForm" method="post" class="form-horizontal"
+                              data-bv-message="This value is not valid"
+                              data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                              data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                              data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                           <input type="hidden" name="twitter_id" value="{{network.twitter_id}}" />
+                        
+
+                            
+
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label">Nombre de usuario</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" name="username" type="text"  value="{{network.username}}" />
+                                </div>
+                            </div>
+
+
+                          
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label">Tweet</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" name="tweet" type="text"  value="" />
+                                </div>
+                            </div>
+                            
+                            
+                           
+                            <div class="form-group">
+                                <div class="col-lg-offset-4 col-lg-8">
+                                    <input class="btn btn-palegreen" type="submit" value="Tweet" />
+                                    <button class="btn btn-danger" onclick="window.location.href='/twitter'">Cancelar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+
+        <!--Basic Scripts-->
+    <script src={{ url_for('static', filename='assets/js/jquery.min.js')}}></script>
+    <script src={{ url_for('static', filename='assets/js/bootstrap.min.js')}}></script>
+    <script src={{ url_for('static', filename='assets/js/slimscroll/jquery.slimscroll.min.js')}}></script>
+
+    <!--Beyond Scripts-->
+    <script src={{ url_for('static', filename='assets/js/beyond.min.js')}}></script>
+
+    <!--Page Related Scripts-->
+    <script src={{ url_for('static', filename='assets/js/validation/bootstrapValidator.js')}}></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#registrationForm").bootstrapValidator();
+
+           
+        });
+    </script>
+
+    </div>
+    <!-- /Page Body -->
+{% endblock %}

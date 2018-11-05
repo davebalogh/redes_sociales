@@ -37,7 +37,7 @@ def userList():
         if 'result' in request.args:
             show_message_css = ''
             if request.args['result'] == 'ok':
-                show_message_text = 'La información se guardo correctamente'
+                show_message_text = 'La información se guardó correctamente'
             else:
                 show_message_type = 'danger'
                 show_message_text = 'Hubo un problema al realizar la acción'
@@ -80,7 +80,7 @@ def userEdit(id=None):
             existingUser = Login.User.select().where(Login.User.username == currentUser.username, Login.User.user_id != currentUser.user_id)
             print(existingUser.count())
             if existingUser.count() > 0:
-                flash('Username exisitente', 'error')
+                flash('El Username ya existe en la base de datos, debe ingresar uno diferente.', 'error')
                 return render_template('users/edit.html', form=form, user=currentUser, session=1)
             else:
                 currentUser.save()

@@ -69,8 +69,14 @@ def networkEdit(id=None):
                 currentNet.is_active = 0
 
             currentNet.save()
-            
-            return redirect ('/networks?result=ok')
+
+            last_network_id = NetworkModel.Network.select().order_by(NetworkModel.Network.network_id.desc()).get().network_id
+
+
+            if id == None:
+                return redirect ('/' + currentNet.network_type.lower() + '/new/' + str(last_network_id))
+            else:
+                return redirect ('/networks?result=ok')
 
     else:
         return redirect ('/logout')
