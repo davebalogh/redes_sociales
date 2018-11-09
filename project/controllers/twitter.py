@@ -373,24 +373,12 @@ def messageList(network_id):
 
                     senderFriend = NetworkModel.Friend.select().where(NetworkModel.Friend.external_uuid == event['message_create']['sender_id'], NetworkModel.Friend.network_id == network_id)
 
-                recipientFriend = NetworkModel.Friend.select().where(NetworkModel.Friend.external_uuid == event['message_create']['target']['recipient_id'], NetworkModel.Friend.network_id == network_id)
-                if senderFriend.count() == 0:
-                    newFriend = NetworkModel.Friend()
-                    newFriend.external_uuid = event['message_create']['target']['recipient_id']
-                    newFriend.name = 'Desconocido'
-                    newFriend.username = 'desconocido'
-                    newFriend.network_id = network_id
-                    newFriend.is_visible = 0
-                    newFriend.save()
-
-                    recipientFriend = NetworkModel.Friend.select().where(NetworkModel.Friend.external_uuid == event['message_create']['target']['recipient_id'], NetworkModel.Friend.network_id == network_id)
-
+          
                 newMessage = NetworkModel.Message()
                 newMessage.text = str(event['message_create']['message_data']['text'].encode('ascii', 'ignore').decode('utf-8', 'replace'))
                 newMessage.external_uuid = event['id']
                 newMessage.network_id = network_id
                 newMessage.friend_sender_id = senderFriend[0].friend_id
-                newMessage.friend_recipient_id = recipientFriend[0].friend_id
                 #newMessage.created_timestamp = datetime.utcfromtimestamp(int(event['created_timestamp'])) 
 
                 newMessage.save()

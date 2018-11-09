@@ -114,6 +114,10 @@
                                                             <a href="twitter/inbox/{{ network.network_id}}" class="btn btn-info btn-xs"><i class="fa fa-inbox"></i> Mensajes &nbsp;&nbsp;</a>
                                                         {% endif %}
 
+                                                        {% if network.network_type == 'Slack' %}
+                                                            <a href="/slack/friends/{{ network.slack_id}}" class="btn btn-info btn-xs"><i class="fa fa-users"></i> Amigos &nbsp;&nbsp;</a>
+                                                        {% endif %}
+
                                                 </td>
                                         </tr>
                                     {% endfor %}

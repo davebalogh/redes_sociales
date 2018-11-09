@@ -107,8 +107,16 @@ def networkDelete(network_id):
                     currentNet.delete_instance()
                     return redirect ('/networks?result=ok')
 
-            if currentNet.network_type == 'Telegram':
+            if currentNet.network_type == 'Slack':
+                currentSlackNet = NetworkModel.Slack.get(NetworkModel.Slack.network_id == network_id)
+                friendList = NetworkModel.Friend.delete().where(NetworkModel.Friend.network_id == network_id)
+                messageList = NetworkModel.Message.delete().where(NetworkModel.Message.network_id == network_id)
+
+                messageList.execute()
+                friendList.execute()
+                currentSlackNet.delete_instance()
                 currentNet.delete_instance()
+
                 return redirect ('/networks?result=ok')
 
         return redirect ('/networks?result=fail')

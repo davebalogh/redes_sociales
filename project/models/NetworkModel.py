@@ -12,6 +12,7 @@ class Network(BaseModel.Base):
     network_type = peewee.CharField()
     created_date = peewee.DateTimeField()
     twitter_id = peewee.IntegerField()
+    slack_id = peewee.IntegerField()
 
 
 class Friend(BaseModel.Base):
@@ -49,7 +50,13 @@ class Message(BaseModel.Base):
     external_uuid = peewee.CharField()
     network_id = peewee.ForeignKeyField(Network, backref='Messages')
     friend_sender_id = peewee.ForeignKeyField(Friend, backref='Messages')
-    friend_recipient_id = peewee.ForeignKeyField(Friend, backref='Messages')
     created_timestamp = peewee.DateTimeField()
     
 
+class Slack(BaseModel.Base):
+    slack_id = peewee.IntegerField(primary_key=True)
+    workspace = peewee.CharField()
+    oauth_access_token = peewee.CharField()
+    network_id = peewee.ForeignKeyField(Network, backref='Slacks')
+    user_id = peewee.ForeignKeyField(Login.User, backref='Slacks')
+    friend_id = peewee.ForeignKeyField(Friend, backref='Slacks')
