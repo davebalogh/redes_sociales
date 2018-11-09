@@ -4,7 +4,7 @@
     <div class="page-header position-relative">
         <div class="header-title">
             <h1>
-                Twitter
+                Twitter @{{twitter.username}}
             </h1>
         </div>
     </div>
@@ -53,7 +53,7 @@
 
                     <div class="widget">
                         <div class="widget-header ">
-                            <span class="widget-caption">Listado</span>
+                            <span class="widget-caption">Amigos</span>
                             <div class="widget-buttons">
                                 
                                 <a href="#" data-toggle="maximize">
@@ -70,14 +70,14 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            Twitter Id
+                                            Foto
                                         </th>
                                         <th>
-                                            Username
+                                            Nombre
                                         </th>
                              
                                         <th>
-                                            Usuario
+                                            Username
                                         </th>
                                         <th>
                                             Red Social
@@ -94,25 +94,22 @@
                                               
                                                 
                                                 <td>
-                                                    {{ network.twitter_id }}
+                                                    <img src="{{ network.image_url }}" />
                                                 </td>
                                                 <td>
-                                                    {{ network.username }}
+                                                    {{ network.name }}
                                                 </td>
                                      
                                            
                                                 <td class="center ">
-                                                    {{ network.user_id.username }}
+                                                    @{{ network.username }}
                                                 </td>
                                                 <td class="center ">
                                                     {{ network.network_id.name }}
                                                 </td>
                                                 <td>
-                                                    <a href="twitter/tweet/{{ network.twitter_id}}" class="btn btn-info btn-xs"><i class="fa fa-twitter"></i> Nuevo Tweet &nbsp;&nbsp;</a>
-                                                    <a href="twitter/tweets/{{ network.twitter_id}}" class="btn btn-info btn-xs"><i class="fa fa-twitter"></i> Tweets &nbsp;&nbsp;</a>
-                                                    <a href="twitter/friends/{{ network.twitter_id}}" class="btn btn-info btn-xs"><i class="fa fa-users"></i> Amigos &nbsp;&nbsp;</a>
-                                                    <a href="twitter/inbox/{{ network.network_id}}" class="btn btn-info btn-xs"><i class="fa fa-inbox"></i> Mensajes &nbsp;&nbsp;</a>
-                                                    <a href="twitter/edit/{{ network.twitter_id}}/{{ network.network_id}}" class="btn btn-info btn-xs"><i class="fa fa-edit"></i> Editar &nbsp;&nbsp;</a>
+                                                    <a href="/twitter/{{network.network_id}}/friend/message/{{ network.friend_id}}" class="btn btn-info btn-xs"><i class="fa fa-envelope-o"></i> Enviar Mensaje &nbsp;&nbsp;</a>
+                                                    
                                                 </td>
                                         </tr>
                                     {% endfor %}
@@ -140,7 +137,7 @@
             <script src="{{ url_for('static', filename='assets/js/datatable/dataTables.bootstrap.min.js')}}"></script>
             <script src="{{ url_for('static', filename='assets/js/datatable/datatables-init.js')}}"></script>
             <script>
-                InitiateEditableDataTable.init("<a href='/networks'>Todas las Redes</a>");
+                InitiateEditableDataTable.init("<a href='/twitter'>Volver</a>");
             </script>
 
 

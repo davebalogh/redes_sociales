@@ -87,19 +87,30 @@ def networkNew():
     return networkEdit(None)
 
 
-@app.route('/networks/delete/<int:id>', methods=['GET', 'POST'])
-def networkDelete(id):
+@app.route('/networks/delete/<int:network_id>', methods=['GET', 'POST'])
+def networkDelete(network_id):
     if 'user_id' in session:
-        if id != None:
-            currentTwitterNet = NetworkModel.Twitter.get(NetworkModel.Twitter.network_id == id)
-            networkList = NetworkModel.Tweet.delete().where(NetworkModel.Tweet.twitter_id == currentTwitterNet.twitter_id and NetworkModel.Tweet.user_id  == session['user_id'])
-            currentNet = NetworkModel.Network.get(NetworkModel.Network.network_id == id)
+        if network_id != None:
+            currentNet = NetworkModel.Network.get(NetworkModel.Network.network_id == network_id)
 
-            if currentNet.network_id != None:
-                networkList.execute()
-                currentTwitterNet.delete_instance()
+            if currentNet.network_type == 'Twitter':
+                currentTwitterNet = NetworkModel.Twitter.get(NetworkModel.Twitter.network_id == network_id)
+                tweetList = NetworkModel.Tweet.delete().where(NetworkModel.Tweet.twitter_id == currentTwitterNet.twitter_id)
+                friendList = NetworkModel.Friend.delete().where(NetworkModel.Friend.network_id == network_id)
+                messageList = NetworkModel.Message.delete().where(NetworkModel.Message.network_id == network_id)
+
+                if currentNet.network_id != None:
+                    messageList.execute()
+                    friendList.execute()
+                    tweetList.execute()
+                    currentTwitterNet.delete_instance()
+                    currentNet.delete_instance()
+                    return redirect ('/networks?result=ok')
+
+            if currentNet.network_type == 'Telegram':
                 currentNet.delete_instance()
                 return redirect ('/networks?result=ok')
+
         return redirect ('/networks?result=fail')
     else:
         return redirect ('/logout')

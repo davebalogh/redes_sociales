@@ -78,7 +78,7 @@ def userEdit(id=None):
             print(currentUser.user_id)
             #validation of existing user
             existingUser = Login.User.select().where(Login.User.username == currentUser.username, Login.User.user_id != currentUser.user_id)
-            print(existingUser.count())
+            #print(existingUser.count())
             if existingUser.count() > 0:
                 flash('El Username ya existe en la base de datos, debe ingresar uno diferente.', 'error')
                 return render_template('users/edit.html', form=form, user=currentUser, session=1)

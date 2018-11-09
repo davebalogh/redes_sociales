@@ -66,7 +66,7 @@ var InitiateEditableDataTable = function() {
                     [5, 15, 20, 100, -1],
                     [5, 15, 20, 100, "All"]
                 ],
-                "iDisplayLength": 5,
+                "iDisplayLength": 15,
                 "sPaginationType": "bootstrap",
                 "sDom": "Tflt<'row DTTTFooter'<'col-sm-6'i><'col-sm-6'p>>",
                 "oTableTools": {

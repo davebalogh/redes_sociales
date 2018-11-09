@@ -110,6 +110,8 @@
 
                                                         {% if network.network_type == 'Twitter' %}
                                                             <a href="twitter/tweets/{{ network.twitter_id}}" class="btn btn-info btn-xs"><i class="fa fa-twitter"></i> Tweets &nbsp;&nbsp;</a>
+                                                            <a href="twitter/friends/{{ network.twitter_id}}" class="btn btn-info btn-xs"><i class="fa fa-users"></i> Amigos &nbsp;&nbsp;</a>
+                                                            <a href="twitter/inbox/{{ network.network_id}}" class="btn btn-info btn-xs"><i class="fa fa-inbox"></i> Mensajes &nbsp;&nbsp;</a>
                                                         {% endif %}
 
                                                 </td>
