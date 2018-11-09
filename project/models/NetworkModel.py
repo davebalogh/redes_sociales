@@ -11,6 +11,7 @@ class Network(BaseModel.Base):
     owner_id = peewee.ForeignKeyField(Login.User, backref='Networks')
     network_type = peewee.CharField()
     created_date = peewee.DateTimeField()
+    twitter_id = peewee.IntegerField()
 
 
 class Twitter(BaseModel.Base):

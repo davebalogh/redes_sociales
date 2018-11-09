@@ -91,8 +91,13 @@ def networkNew():
 def networkDelete(id):
     if 'user_id' in session:
         if id != None:
+            currentTwitterNet = NetworkModel.Twitter.get(NetworkModel.Twitter.network_id == id)
+            networkList = NetworkModel.Tweet.delete().where(NetworkModel.Tweet.twitter_id == currentTwitterNet.twitter_id and NetworkModel.Tweet.user_id  == session['user_id'])
             currentNet = NetworkModel.Network.get(NetworkModel.Network.network_id == id)
+
             if currentNet.network_id != None:
+                networkList.execute()
+                currentTwitterNet.delete_instance()
                 currentNet.delete_instance()
                 return redirect ('/networks?result=ok')
         return redirect ('/networks?result=fail')

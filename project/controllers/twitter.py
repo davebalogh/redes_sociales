@@ -6,7 +6,7 @@ from wtforms import StringField, PasswordField, Label
 from wtforms.validators import DataRequired
 from project.models import NetworkModel
 from flask import flash, session, redirect
-
+from dateutil import parser
 import json
 import oauth2
 import os
@@ -20,7 +20,7 @@ def oauth_req(url, key, secret, consumer_key, consumer_secret, http_method="GET"
     token = oauth2.Token(key=key, secret=secret)
     client = oauth2.Client(consumer, token)
     resp, content = client.request(url, method=http_method, body=post_body, headers=http_headers )
-    print(content)
+    #print(content)
     return content
 
 def json_str(json_obj):
@@ -112,6 +112,11 @@ def twitterEdit(id=None, network_id=None):
 
             currentNet.save()
 
+            if id == None:
+                last_twitter_id = NetworkModel.Twitter.select().order_by(NetworkModel.Twitter.twitter_id.desc()).get().twitter_id
+                currentNetwork = NetworkModel.Network.get(NetworkModel.Network.network_id == network_id)
+                currentNetwork.twitter_id = last_twitter_id
+                currentNetwork.save()
 
             return redirect ('/twitter?result=ok')
 
@@ -172,10 +177,33 @@ def twitterTweet(twitter_id):
 def tweetList(twitter_id):
     if 'user_id' in session:
         form = FormList(request.form)
-        networkList = NetworkModel.Tweet.select().where(NetworkModel.Tweet.twitter_id == twitter_id and NetworkModel.Tweet.user_id  == session['user_id'])
         currentNet = NetworkModel.Twitter.get(NetworkModel.Twitter.twitter_id == twitter_id)
-        #if session['is_admin'] != 1:
-        #    networkList = NetworkModel.Network.select().where(NetworkModel.Twitter.user_id == session['user_id'])
+
+        #import new tweets
+        home_timeline = oauth_req('https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=davidbalogh', currentNet.access_token, currentNet.access_token_secret, currentNet.consumer_key, currentNet.consumer_secret)
+
+        data = home_timeline.decode('utf-8', 'replace')
+        obj = json.loads(data)
+        #print(obj.encode('ascii', 'ignore'))
+
+        for tweet in obj:
+            selectTweet = NetworkModel.Tweet.select().where(NetworkModel.Tweet.tweet_uuid == tweet['id_str'])
+
+            if selectTweet.count() == 0:
+                newTweet = NetworkModel.Tweet()
+                newTweet.user_id = session['user_id']
+                newTweet.twitter_id = twitter_id
+                newTweet.text = str(tweet['text'].encode('ascii', 'ignore').decode('utf-8', 'replace'))
+                newTweet.tweet_uuid = tweet['id_str']
+
+                newTweet.date = parser.parse(tweet['created_at'])
+                newTweet.save()
+
+        
+        networkList = NetworkModel.Tweet.select().where(NetworkModel.Tweet.twitter_id == twitter_id and NetworkModel.Tweet.user_id  == session['user_id']).order_by(NetworkModel.Tweet.date.desc())
+        
+        if session['is_admin'] == 1:
+            networkList = NetworkModel.Tweet.select().where(NetworkModel.Tweet.twitter_id == twitter_id).order_by(NetworkModel.Tweet.date.desc())
 
         show_message_css = 'hide'
         show_message_text = ''
@@ -201,8 +229,9 @@ def tweetDelete(tweet_id):
             currenTweet = NetworkModel.Tweet.get(NetworkModel.Tweet.tweet_id == tweet_id)
             if currenTweet.tweet_id != None:
                 currentNet = NetworkModel.Twitter.get(NetworkModel.Twitter.twitter_id == currenTweet.twitter_id)
-                home_timeline = oauth_req('https://api.twitter.com/1.1/statuses/destroy/' + currenTweet.tweet_uuid + '.json', currentNet.access_token, currentNet.access_token_secret, currentNet.consumer_key, currentNet.consumer_secret, http_method='POST')
-                data = home_timeline.decode('utf-8', 'replace')
+                oauth_req('https://api.twitter.com/1.1/statuses/destroy/' + currenTweet.tweet_uuid + '.json', currentNet.access_token, currentNet.access_token_secret, currentNet.consumer_key, currentNet.consumer_secret, http_method='POST')
+                #home_timeline = 
+                #data = home_timeline.decode('utf-8', 'replace')
 
                 currenTweet.delete_instance()
                 return redirect ('/twitter/tweets/' + str(currentNet.twitter_id) + '?result=ok')

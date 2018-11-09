@@ -6373,7 +6373,7 @@
 				$.each( _fnGetRowElements( oSettings, rowOne[0] ).cells, function (i, cell) {
 					var col = oSettings.aoColumns[i];
 			
-					if ( col.mData === i ) {
+					if ( col !== undefined && col.mData === i ) {
 						var sort = a( cell, 'sort' ) || a( cell, 'order' );
 						var filter = a( cell, 'filter' ) || a( cell, 'search' );
 			
