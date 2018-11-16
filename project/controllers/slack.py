@@ -43,8 +43,13 @@ def slackList():
             else:
                 show_message_type = 'danger'
                 show_message_text = 'Hubo un problema al realizar la acción'
+        
+        current_domain = request.headers.get('Host')
 
-        return render_template('slack/index.html', form=form, networks=networkList, message_css=show_message_css, message_text=show_message_text, message_type=show_message_type, url_domain = request.headers.get('Host'))
+        if request.headers.get('X-Forwarded-Server') != None:
+            current_domain = request.headers.get('X-Forwarded-Server') 
+        
+        return render_template('slack/index.html', form=form, networks=networkList, message_css=show_message_css, message_text=show_message_text, message_type=show_message_type, url_domain = current_domain)
     else:
         return redirect ('/logout')
 
