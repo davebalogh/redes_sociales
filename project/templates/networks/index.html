@@ -99,7 +99,13 @@
                                                         {{ network.name }}
                                                 </td>
                                                 <td>
-                                                        {{ network.network_type }}
+                                                        {% if network.network_type == 'Slack' %}
+                                                            <a href="/slack">{{ network.network_type }}</a>
+                                                        {% endif %}
+
+                                                        {% if network.network_type == 'Twitter' %}
+                                                            <a href="/twitter">{{ network.network_type }}</a>
+                                                        {% endif %}
                                                 </td>
                                                 <td class="center ">
                                                         {{ network.owner_id.username }}
