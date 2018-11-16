@@ -44,7 +44,7 @@ def slackList():
                 show_message_type = 'danger'
                 show_message_text = 'Hubo un problema al realizar la acción'
 
-        return render_template('slack/index.html', form=form, networks=networkList, message_css=show_message_css, message_text=show_message_text, message_type=show_message_type)
+        return render_template('slack/index.html', form=form, networks=networkList, message_css=show_message_css, message_text=show_message_text, message_type=show_message_type, url_domain = request.headers.get('Host'))
     else:
         return redirect ('/logout')
 
@@ -198,7 +198,7 @@ def conversation_open(users, oauth_access_token):
     response = requests.request("POST", url, data=payload, headers=headers)
 
     resp = json.loads(response.text)
-    print(json_str(response.text))
+    #print(json_str(response.text))
     if resp['ok']:
         return resp['channel']['id']
     
@@ -263,13 +263,13 @@ def slackMessageList(network_id, friend_id):
         response = requests.request("GET", url, headers=headers)
         resp = json.loads(response.text)
 
-        print(json_str(resp))
+        #print(json_str(resp))
 
         for event in resp['messages']:
             
             selectMessage = NetworkModel.Message.select().where(NetworkModel.Message.external_uuid == event['user']+'-'+event['ts'], NetworkModel.Message.network_id == currentNet.network_id)
 
-            if selectMessage.count() == 0 and currentNet.friend_id.external_uuid != event['user']:
+            if selectMessage.count() == 0:
                 senderFriend = NetworkModel.Friend.select().where(NetworkModel.Friend.external_uuid == event['user'], NetworkModel.Friend.network_id == network_id)
                 if senderFriend.count() == 0:
                     newFriend = NetworkModel.Friend()
@@ -315,3 +315,21 @@ def slackMessageList(network_id, friend_id):
         return render_template('slack/inbox.html', form=form, slack=currentNet, networks=messageList, message_css=show_message_css, message_text=show_message_text, message_type=show_message_type)
     else:
         return redirect ('/logout')
+
+
+@app.route('/slack/challenge/<string:workspace>/<int:slack_id>', methods=['POST', 'GET'])
+def challenge(workspace, slack_id):
+    currentNet = NetworkModel.Slack.select().where(NetworkModel.Slack.slack_id == slack_id, NetworkModel.Slack.workspace == workspace)
+    if currentNet.count() == 1:
+        if request.json['type'] == 'url_verification':
+            response = {'challenge': request.json['challenge'] }
+            return json.dumps(response)
+
+        if request.json['event']['type'] == 'message':
+            emisor = request.json['event']['user']
+            canal = request.json['event']['channel']
+            texto = request.json['event']['text']
+
+        #send_msg('como va?' + emisor + ' - ' + texto, canal)
+
+    return ''

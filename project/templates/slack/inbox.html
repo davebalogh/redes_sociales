@@ -87,8 +87,9 @@
                                                 
                                      
                                                 <td>
-                                                    <a href="/slack/{{network.network_id}}/friend/message/{{ network.friend_sender_id}}" class="btn btn-info btn-xs"><i class="fa fa-envelope-o"></i> Responder &nbsp;&nbsp;</a>
-                                               
+                                                    {% if slack.friend_id != network.friend_sender_id %}
+                                                        <a href="/slack/{{network.network_id}}/friend/message/{{ network.friend_sender_id}}" class="btn btn-info btn-xs"><i class="fa fa-envelope-o"></i> Responder &nbsp;&nbsp;</a>
+                                                    {% endif %}
                                                 </td>
                                         </tr>
                                     {% endfor %}

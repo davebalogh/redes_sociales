@@ -47,13 +47,13 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            Id
-                                        </th>
-                                        <th>
                                             Red Social
                                         </th>
                                         <th>
                                             Workspace
+                                        </th>
+                                        <th>
+                                                Url Challenge
                                         </th>
                                         <th>
                                             Propietario
@@ -67,16 +67,14 @@
 
                                     {% for network in networks %}
                                         <tr>
-                                              
-                                                
-                                                <td>
-                                                        {{ network.slack_id }}
-                                                </td>
                                                 <td>
                                                         {{ network.network_id.name }}
                                                 </td>
                                                 <td>
                                                         http://{{ network.workspace }}.slack.com
+                                                </td>
+                                                <td>
+                                                        http://{{url_domain}}/slack/challenge/{{ network.workspace }}/{{ network.slack_id }}
                                                 </td>
                                                 <td class="center ">
                                                         {{ network.user_id.username }}
