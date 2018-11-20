@@ -20,10 +20,12 @@ CREATE TABLE `network` (
   `network_type` varchar(45) NOT NULL,
   `twitter_id` int(11) DEFAULT NULL,
   `slack_id` int(11) DEFAULT NULL,
+  `telegram_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`network_id`),
   KEY `owner_id_fk_idx` (`owner_id`),
   CONSTRAINT `owner_id_fk` FOREIGN KEY (`owner_id`) REFERENCES `user` (`user_id`) ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+
 
 CREATE TABLE `friend` (
   `friend_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -103,3 +105,21 @@ CREATE TABLE `slack` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 
+CREATE TABLE `telegram` (
+  `telegram_id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(128) NOT NULL,
+  `first_name` varchar(64) NOT NULL,
+  `external_uuid` varchar(128) NOT NULL,
+  `bot_token` varchar(128) NOT NULL,
+  `webhook_activated` int(11) DEFAULT '0',
+  `network_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `friend_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`telegram_id`),
+  KEY `FK_telegram_network_id_idx` (`network_id`),
+  KEY `FK_telegram_user_id_idx` (`user_id`),
+  KEY `FK_telegram_friend_id_idx` (`friend_id`),
+  CONSTRAINT `FK_telegram_friend_id` FOREIGN KEY (`friend_id`) REFERENCES `friend` (`friend_id`) ON DELETE SET NULL ON UPDATE NO ACTION,
+  CONSTRAINT `FK_telegram_network_id` FOREIGN KEY (`network_id`) REFERENCES `network` (`network_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_telegram_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
