@@ -13,7 +13,7 @@ class Network(BaseModel.Base):
     created_date = peewee.DateTimeField()
     twitter_id = peewee.IntegerField()
     slack_id = peewee.IntegerField()
-
+    telegram_id = peewee.IntegerField()
 
 class Friend(BaseModel.Base):
     friend_id = peewee.IntegerField(primary_key=True)
@@ -60,3 +60,14 @@ class Slack(BaseModel.Base):
     network_id = peewee.ForeignKeyField(Network, backref='Slacks')
     user_id = peewee.ForeignKeyField(Login.User, backref='Slacks')
     friend_id = peewee.ForeignKeyField(Friend, backref='Slacks')
+
+class Telegram(BaseModel.Base):
+    telegram_id = peewee.IntegerField(primary_key=True)
+    username = peewee.CharField()
+    first_name = peewee.CharField()
+    external_uuid = peewee.CharField()
+    bot_token = peewee.CharField()
+    webhook_activated = peewee.IntegerField()
+    network_id = peewee.ForeignKeyField(Network, backref='Telegrams')
+    user_id = peewee.ForeignKeyField(Login.User, backref='Telegrams')
+    friend_id = peewee.ForeignKeyField(Friend, backref='Telegrams')

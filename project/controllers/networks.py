@@ -119,6 +119,19 @@ def networkDelete(network_id):
 
                 return redirect ('/networks?result=ok')
 
+
+            if currentNet.network_type == 'Telegram':
+                currentTelegramNet = NetworkModel.Telegram.get(NetworkModel.Telegram.network_id == network_id)
+                friendList = NetworkModel.Friend.delete().where(NetworkModel.Friend.network_id == network_id)
+                messageList = NetworkModel.Message.delete().where(NetworkModel.Message.network_id == network_id)
+
+                messageList.execute()
+                friendList.execute()
+                currentTelegramNet.delete_instance()
+                currentNet.delete_instance()
+
+                return redirect ('/networks?result=ok')
+
         return redirect ('/networks?result=fail')
     else:
         return redirect ('/logout')

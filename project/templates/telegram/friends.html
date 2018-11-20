@@ -1,0 +1,125 @@
+{% extends "layout/internal.html" %}
+{% block body %}
+    <!-- Page Header -->
+    <div class="page-header position-relative">
+        <div class="header-title">
+            <h1>
+                Telegram @{{telegram.username}}
+            </h1>
+        </div>
+    </div>
+    <!-- /Page Header -->
+    <!-- Page Body -->
+    <div class="page-body">
+
+
+
+        <div class="row">
+
+                
+
+            <div class="col-xs-12 col-md-12">
+                    <div class="alert alert-{{message_type}} fade in {{message_css}}">
+                            <button class="close" data-dismiss="alert">
+                                ×
+                            </button>
+                            <i class="fa-fw fa fa-check"></i>
+                            {{message_text}}
+                    </div>
+
+                        
+
+                    <div class="widget">
+                        <div class="widget-header ">
+                            <span class="widget-caption">Amigos</span>
+                            <div class="widget-buttons">
+                                
+                                <a href="#" data-toggle="maximize">
+                                    <i class="fa fa-expand"></i>
+                                </a>
+                            </div>
+                          
+                        </div>
+                        <div class="widget-body">
+
+                                
+                            
+                            <table class="table table-striped table-bordered table-hover" id="editabledatatable">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Id
+                                        </th>
+                                        <th>
+                                            Nombre
+                                        </th>
+                             
+                                        <th>
+                                            Username
+                                        </th>
+                                        <th>
+                                            Red Social
+                                        </th>
+                                        <th>
+                                            Acci&oacute;n
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    {% for network in networks %}
+                                        <tr>
+                                              
+                                                
+                                                <td>
+                                                    {{ network.friend_id }}
+                                                </td>
+                                                <td>
+                                                    {{ network.name }}
+                                                </td>
+                                     
+                                           
+                                                <td class="center ">
+                                                    {{ network.username }}
+                                                </td>
+                                                <td class="center ">
+                                                    {{ network.network_id.name }}
+                                                </td>
+                                                <td>
+                                                     <a href="/telegram/{{network.network_id}}/friend/message/{{ network.friend_id}}" class="btn btn-info btn-xs"><i class="fa fa-envelope-o"></i> Enviar Mensaje &nbsp;&nbsp;</a>
+                                                    
+                                                </td>
+                                        </tr>
+                                    {% endfor %}
+
+                                    
+
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Basic Scripts-->
+            <script src="{{ url_for('static', filename='assets/js/jquery.min.js')}}"></script>
+            <script src="{{ url_for('static', filename='assets/js/bootstrap.min.js')}}"></script>
+            <script src="{{ url_for('static', filename='assets/js/slimscroll/jquery.slimscroll.min.js')}}"></script>
+
+            <!--Beyond Scripts-->
+            <script src="{{ url_for('static', filename='assets/js/beyond.min.js')}}"></script>
+            <!--Page Related Scripts-->
+            <script src="{{ url_for('static', filename='assets/js/datatable/jquery.dataTables.js')}}"></script>
+            <script src="{{ url_for('static', filename='assets/js/datatable/ZeroClipboard.js')}}"></script>
+            <script src="{{ url_for('static', filename='assets/js/datatable/dataTables.tableTools.min.js')}}"></script>
+            <script src="{{ url_for('static', filename='assets/js/datatable/dataTables.bootstrap.min.js')}}"></script>
+            <script src="{{ url_for('static', filename='assets/js/datatable/datatables-init.js')}}"></script>
+            <script>
+                InitiateEditableDataTable.init("<a href='/twitter'>Volver</a>");
+            </script>
+
+
+            
+    </div>
+    <!-- /Page Body -->
+{% endblock %}

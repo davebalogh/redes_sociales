@@ -4,7 +4,7 @@
     <div class="page-header position-relative">
         <div class="header-title">
             <h1>
-                Red {{network.name}}
+                Red {{network.workspace}}
             </h1>
         </div>
     </div>
@@ -26,46 +26,30 @@
                               data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
                               data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
                               data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
-                           <input type="hidden" name="network_id" value="{{network.network_id}}" />
+                           <input type="hidden" name="slack_id" value="{{network.slack_id}}" />
                         
-
+                            {% for category, message in get_flashed_messages(with_categories=true) %}
+                                <div class="flash" style="color: red; text-align: center; margin-bottom: 10px">{{ message }}</div>
+                            {% endfor %}
                             
 
                             <div class="form-group">
-                                <label class="col-lg-4 control-label">Nombre</label>
+                                <label class="col-lg-4 control-label">Username</label>
                                 <div class="col-lg-8">
-                                    <input class="form-control" name="name" type="text"
-
-                                           value="{{network.name}}" />
+                                    <div><input class="form-control" name="username" type="text" value="{{network.username}}" /></div>
                                 </div>
                             </div>
                             
-                            <div class="form-group has-feedback">
-                                    <label class="col-lg-4 control-label">Tipo</label>
-                                    <div class="col-lg-8">
-                                        <select class="form-control" name="network_type" data-bv-field="network_type">
-                                            <option value="">Seleccionar</option>
-                                            <option value="Twitter" {% if 'Twitter' in network.network_type %} selected {% endif %} >Twitter</option>
-                                            <option value="Slack" {% if 'Slack' in network.network_type %} selected {% endif %} >Slack</option>
-                                            <option value="Telegram" {% if 'Telegram' in network.network_type %} selected {% endif %} >Telegram</option>
-                                        </select><i class="form-control-feedback" data-bv-field="network_type" style="display: none;"></i>
-                                    </div>
-                                </div>
-                
-                            <div class="form-group">
-                                    <label class="col-lg-4 control-label">¿Est&aacute; Activa?</label>
                            
-                                    <div class="col-lg-8">
-                                            <div class="form-group" style=" margin-left: 0;">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" {% if network.is_active %} checked {% endif %} name="is_active" />
-                                                            <span class="text"></span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                    </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label">Bot Token</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" name="bot_token" type="text"
+
+                                           value="{{network.bot_token}}" />
+                                </div>
                             </div>
+                          
                            
                             <div class="form-group">
                                 <div class="col-lg-offset-4 col-lg-8">

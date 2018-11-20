@@ -106,22 +106,31 @@
                                                         {% if network.network_type == 'Twitter' %}
                                                             <a href="/twitter">{{ network.network_type }}</a>
                                                         {% endif %}
+
+                                                        {% if network.network_type == 'Telegram' %}
+                                                            <a href="/telegram">{{ network.network_type }}</a>
+                                                        {% endif %}
                                                 </td>
                                                 <td class="center ">
                                                         {{ network.owner_id.username }}
                                                 </td>
                                                 <td>
-                                                        <a href="networks/edit/{{ network.network_id}}" class="btn btn-info btn-xs"><i class="fa fa-edit"></i> Editar &nbsp;&nbsp;</a>
+                                                        <a href="/networks/edit/{{ network.network_id}}" class="btn btn-info btn-xs"><i class="fa fa-edit"></i> Editar &nbsp;&nbsp;</a>
                                                         <a href="#" onclick="$('#delete_object_id').val('{{ network.network_id}}'); $('#delete_object_confirmation').css('display', 'block');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Eliminar</a>
 
                                                         {% if network.network_type == 'Twitter' %}
-                                                            <a href="twitter/tweets/{{ network.twitter_id}}" class="btn btn-info btn-xs"><i class="fa fa-twitter"></i> Tweets &nbsp;&nbsp;</a>
-                                                            <a href="twitter/friends/{{ network.twitter_id}}" class="btn btn-info btn-xs"><i class="fa fa-users"></i> Amigos &nbsp;&nbsp;</a>
-                                                            <a href="twitter/inbox/{{ network.network_id}}" class="btn btn-info btn-xs"><i class="fa fa-inbox"></i> Mensajes &nbsp;&nbsp;</a>
+                                                            <a href="/twitter/tweets/{{ network.twitter_id}}" class="btn btn-info btn-xs"><i class="fa fa-twitter"></i> Tweets &nbsp;&nbsp;</a>
+                                                            <a href="/twitter/friends/{{ network.twitter_id}}" class="btn btn-info btn-xs"><i class="fa fa-users"></i> Amigos &nbsp;&nbsp;</a>
+                                                            <a href="/twitter/inbox/{{ network.network_id}}" class="btn btn-info btn-xs"><i class="fa fa-inbox"></i> Mensajes &nbsp;&nbsp;</a>
                                                         {% endif %}
 
                                                         {% if network.network_type == 'Slack' %}
                                                             <a href="/slack/friends/{{ network.slack_id}}" class="btn btn-info btn-xs"><i class="fa fa-users"></i> Amigos &nbsp;&nbsp;</a>
+                                                        {% endif %}
+
+                                                        {% if network.network_type == 'Telegram' %}
+                                                            <a href="/telegram/friends/{{ network.telegram_id}}" class="btn btn-info btn-xs"><i class="fa fa-users"></i> Amigos &nbsp;&nbsp;</a>
+                                                            <a href="/telegram/inbox/{{ network.network_id}}" class="btn btn-info btn-xs"><i class="fa fa-inbox"></i> Mensajes &nbsp;&nbsp;</a>
                                                         {% endif %}
 
                                                 </td>
