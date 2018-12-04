@@ -10,6 +10,7 @@ import requests, json
 from datetime import datetime
 
 # https://wtforms.readthedocs.io/en/latest/index.html
+# https://core.telegram.org/bots/api#userprofilephotos
 
 class FormList(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
